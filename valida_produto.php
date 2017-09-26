@@ -14,7 +14,7 @@ include ("conexao.php");
 	}
  	if(sizeof($erro)== 0){
 	 
-	 $sql = mysqli_query("INSERT  INTO dados(nome,valor,tipo,categoria,Lug_uso )VALUES('$nome','$valor','$tipo','$categoria','$uso') ")or die(mysqli_error());
+	 $sql = mysqli_query($conexao,"INSERT  INTO dados(nome,valor,tipo,categoria,Lug_uso )VALUES('$nome','$valor','$tipo','$categoria','$uso') ")or die(mysqli_error());
 	 if($sql===TRUE)
 	 {
 	 	echo "Dados inserido com sucesso<p>";
@@ -45,9 +45,9 @@ foreach($_FILES as $chv =>$vlr)
 	
 if(copy($tmpName,$destino))
 {
-	$sql_query = mysqli_query("SELECT id FROM dados ORDER BY id DESC LIMIT 1");
+	$sql_query = mysqli_query($conexao,"SELECT id FROM dados ORDER BY id DESC LIMIT 1");
 	$sql_busca = mysqli_fetch_assoc($sql_query);
-	$insere = mysqli_query("INSERT INTO imagem(id_dados,temp,tamanho,nome) VALUES ('".$sql_busca['id']."','$destino','$fileSize','$fileName')");
+	$insere = mysqli_query($conexao,"INSERT INTO imagem(id_dados,temp,tamanho,nome) VALUES ('".$sql_busca['id']."','$destino','$fileSize','$fileName')");
 	if($insere===FALSE)
 	{
 		echo "Ops! Ocorreu um erro".mysqli_error();
